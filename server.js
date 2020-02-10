@@ -3,11 +3,13 @@
 const express = require('express');
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 app.get('/', (eq, res) => {
     res.send('Hi0');
 });
 
-let server = app.listen(3000);
+let server = app.listen(PORT);
 
 const io = require('socket.io')(server);
 
