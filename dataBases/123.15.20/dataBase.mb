@@ -1,0 +1,60 @@
+{
+  "name": "test",
+  "uuid": "123.15.21",
+  "date": "function Date() { [native code] }",
+  "description": "blabla",
+  "secretKey": "shadow75009",
+  "datas": [
+    {
+      "name": "chat",
+      "description": "first test",
+      "colList": [
+        {
+          "name": "index",
+          "type": "Integer"
+        },
+        {
+          "name": "message",
+          "type": "String"
+        }
+      ],
+      "rowList": [
+        {
+          "index": 5,
+          "message": "Hello from the moon"
+        },
+        {
+          "index": 10,
+          "message": "dannick"
+        },
+        {
+          "index": 3,
+          "message": "dannick"
+        },
+        {
+          "index": 100,
+          "message": "hummm"
+        },
+        {
+          "index": 100,
+          "message": "sas"
+        }
+      ]
+    },
+    {
+      "name": "war2",
+      "description": "second test",
+      "colList": [
+        {
+          "name": "yo",
+          "type": "String"
+        },
+        {
+          "name": "man",
+          "type": "String"
+        }
+      ],
+      "rowList": []
+    }
+  ]
+}
