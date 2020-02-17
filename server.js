@@ -45,8 +45,8 @@ io.on('connect', (socket) => {
     });
     
     // Event to get pushSignal from user---------------------------------------------------------------------
-    socket.on('pushDataBase', function(data){
-      pth = path.resolve(__dirname, './dataBases/' + data.uuid + '/dataBase.mb');
+    socket.on('push', function(data, uuid, mp){
+      pth = path.resolve(__dirname, './dataBases/' + uuid + '/dataBase.mb');
 
       fs.writeFileSync(pth, JSON.stringify(data, null, 2));
         
@@ -55,12 +55,17 @@ io.on('connect', (socket) => {
     
     
     // Event to get pullSignal from user-----------------------------------------------------------------------
-    socket.on('pullDataBase', function(uuid){
+    socket.on('pull', function(uuid, uuid, mp){
       let pth = path.resolve(__dirname, './dataBases/' + uuid + '/dataBase.mb');
       
       let data = fs.readFileSync(pth, 'utf8');
+
+      let db = JSON.parse(data);
+
+      if(db.secretKey != mp)
+        return;
       
-      io.in(uuid).emit('pullDataBase', data);
+      io.in(uuid).emit('getPull', data);
       console.log(data.name + ' was pulled successfully!');
     });
     

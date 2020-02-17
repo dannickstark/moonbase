@@ -36,15 +36,27 @@ class MoonBase {
     }
 
     getSelection(callBack){
-        this.socket.on('getSelection', callBack, this.uuid, this.mp);
+        this.socket.on('getSelection', callBack);
     }
 
     connected(callBack){
-        this.socket.on('connected', callBack, this.uuid, this.mp);
+        this.socket.on('connected', callBack);
     }  
 
     updated(callBack){
-        this.socket.on('updated', callBack, this.uuid, this.mp);
-    }   
+        this.socket.on('updated', callBack);
+    }     
+
+    push(data){
+        this.socket.emit('push', data, this.uuid, this.mp);
+    }  
+
+    pull(data){
+        this.socket.emit('pull', data, this.uuid, this.mp);
+    }
+
+    getPull(callBack){
+        this.socket.on('getPull', callBack);
+    }
 
 }
