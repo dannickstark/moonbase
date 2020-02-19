@@ -51,8 +51,8 @@ class MoonBase {
         this.socket.emit('push', data, this.uuid, this.mp);
     }  
 
-    pull(data){
-        this.socket.emit('pull', data, this.uuid, this.mp);
+    pull(){
+        this.socket.emit('pull', this.uuid, this.mp);
     }
 
     getPull(callBack){

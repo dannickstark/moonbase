@@ -14,7 +14,7 @@ const path = require("path");
 const PORT = process.env.PORT || 3000;
 
 //require some utility funtion for server action
-let utils = require('./moonBase/utils');
+let utils = require('./utils');
 
 app.get('/', (eq, res) => {
     res.send('Hi0');
@@ -48,14 +48,16 @@ io.on('connect', (socket) => {
     socket.on('push', function(data, uuid, mp){
       pth = path.resolve(__dirname, './dataBases/' + uuid + '/dataBase.mb');
 
-      fs.writeFileSync(pth, JSON.stringify(data, null, 2));
+      let db = JSON.stringify(data, null, 2);
+
+      fs.writeFileSync(pth, db);
         
-      io.in(data.uuid).emit('getSelection', data);
+      io.in(data.uuid).emit('updated', db);
     });
     
     
     // Event to get pullSignal from user-----------------------------------------------------------------------
-    socket.on('pull', function(uuid, uuid, mp){
+    socket.on('pull', function(uuid, mp){
       let pth = path.resolve(__dirname, './dataBases/' + uuid + '/dataBase.mb');
       
       let data = fs.readFileSync(pth, 'utf8');
