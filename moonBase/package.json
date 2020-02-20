@@ -1,6 +1,6 @@
 {
   "name": "moonbase-labs",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "MoonBase is a DataBase plattform",
   "main": "moonBase-server.js",
   "scripts": {

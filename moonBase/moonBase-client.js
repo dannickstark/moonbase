@@ -2,13 +2,15 @@ let io = require('socket.io-client');
 
 module.exports = class MoonBase {
 
-    constructor(uuid, mp){
+    constructor(uuid, mp, url){
         this.uuid = uuid;
         this.mp = mp;
+        this.url = url;
     }
 
     connectToMoon(){
-        let socket = io('http://localhost:3000');
+        // let socket = io('http://localhost:3000');
+        let socket = io(this.url);
         socket.emit('connectToDB', this.uuid, this.mp);
         this.socket = socket;
     }
