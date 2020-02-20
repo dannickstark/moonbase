@@ -1,4 +1,6 @@
-class MoonBase {
+let io = require('socket.io-client');
+
+module.exports = class MoonBase {
 
     constructor(uuid, mp){
         this.uuid = uuid;
@@ -6,7 +8,7 @@ class MoonBase {
     }
 
     connectToMoon(){
-        let socket = io.connect('https://moon-base.herokuapp.com/');
+        let socket = io('https://moon-base.herokuapp.com/');
         socket.emit('connectToDB', this.uuid, this.mp);
         this.socket = socket;
     }
@@ -47,12 +49,13 @@ class MoonBase {
         this.socket.on('updated', callBack);
     }     
 
-    push(data){
+    push(data, callBack){
         this.socket.emit('push', data, this.uuid, this.mp);
-    }  
+        this.socket.on('pushed', callBack);
+    }   
 
-    pull(){
-        this.socket.emit('pull', this.uuid, this.mp);
+    pull(name){
+        this.socket.emit('pull', name, this.uuid, this.mp);
     }
 
     getPull(callBack){

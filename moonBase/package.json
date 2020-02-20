@@ -1,6 +1,6 @@
 {
   "name": "moonbase-labs",
-  "version": "0.0.2",
+  "version": "0.1.3",
   "description": "MoonBase is a DataBase plattform",
   "main": "moonBase-server.js",
   "scripts": {
@@ -16,5 +16,8 @@
     "noSql"
   ],
   "author": "Artefact Company",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^2.3.0"
+  }
 }
