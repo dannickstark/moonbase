@@ -115,7 +115,10 @@ io.on('connect', (socket) => {
       let pth = path.resolve(__dirname, '../dataBases/' + uuid + '/dataBase.mb');
       
       fs.readFile(pth, 'utf8', (err, data) => {  
-        if (err) throw err;
+        if (err) {
+          io.in(uuid).emit('getPull', 404);
+          throw err;
+        }
 
         let db = JSON.parse(data);
 
@@ -130,6 +133,29 @@ io.on('connect', (socket) => {
         }
         
         console.log(name + ' was pulled successfully!');
+      });
+    });
+    
+    
+    // Event to get pullSignal from user-----------------------------------------------------------------------
+    socket.on('clone', function(uuid, pw){
+      let pth = path.resolve(__dirname, '../dataBases/' + uuid + '/dataBase.mb');
+      
+      fs.readFile(pth, 'utf8', (err, data) => {  
+        if (err) {
+          io.in(uuid).emit('getClone', 404);
+          throw err;
+        }
+
+        let db = JSON.parse(data);
+
+        console.log(db.pw, pw)
+        if(db.pw != pw)
+          return;
+
+        io.in(uuid).emit('getClone', db);
+        
+        console.log(uuid + ' was clonned successfully!');
       });
     });
     

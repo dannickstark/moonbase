@@ -62,6 +62,14 @@ module.exports = class MoonBase {
 
     getPull(callBack){
         this.socket.on('getPull', callBack);
+    } 
+
+    clone(){
+        this.socket.emit('clone', this.uuid, this.mp);
+    }
+
+    getPull(callBack){
+        this.socket.on('getPull', callBack);
     }
 
 }
