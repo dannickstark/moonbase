@@ -34,7 +34,9 @@ io.on('connect', (socket) => {
       
       fs.access(pth, (err) => {
         if(!err){
-          fs.readFile(pth, 'utf8', (err, data) =>{       
+          fs.readFile(pth, 'utf8', (err, data) =>{   
+            if (err) throw err4;
+
              data = JSON.parse(data);
      
              if(data.pw == pw){
@@ -60,6 +62,8 @@ io.on('connect', (socket) => {
       fs.access(pth, (err) => {
         if(!err){
           fs.readFile(pth, 'utf8', (err2, data2) => { 
+            if (err2) throw err4;
+
             let db2 = JSON.parse(data2);
 
             if(db2.pw != pw)
@@ -122,9 +126,10 @@ io.on('connect', (socket) => {
 
         let db = JSON.parse(data);
 
-        console.log(db.pw, pw)
-        if(db.pw != pw)
+        if(db.pw != pw){
+          io.in(uuid).emit('getPull', 404);
           return;
+        }
 
         for(let i=0; i<db.datas.length; i++){
           if(db.datas[i].name == name){
@@ -140,6 +145,8 @@ io.on('connect', (socket) => {
     // Event to get pullSignal from user-----------------------------------------------------------------------
     socket.on('clone', function(uuid, pw){
       let pth = path.resolve(__dirname, '../dataBases/' + uuid + '/dataBase.mb');
+
+      console.log('-------------------------------------')
       
       fs.readFile(pth, 'utf8', (err, data) => {  
         if (err) {
@@ -149,9 +156,10 @@ io.on('connect', (socket) => {
 
         let db = JSON.parse(data);
 
-        console.log(db.pw, pw)
-        if(db.pw != pw)
+        if(db.pw != pw){
+          io.in(uuid).emit('getClone', 404);
           return;
+        }
 
         io.in(uuid).emit('getClone', db);
         

@@ -52,17 +52,21 @@ module.exports = class MoonBase {
     push(data, callBack){
         this.socket.emit('push', data, this.uuid, this.mp);
         this.socket.on('pushed', callBack);
-    }   
+    }    
 
     pull(name){
         this.socket.emit('pull', name, this.uuid, this.mp);
-    }  
+    }
+
+    getPull(callBack){
+        this.socket.on('getPull', callBack);
+    } 
 
     clone(){
         this.socket.emit('clone', this.uuid, this.mp);
     }
 
-    getPull(callBack){
-        this.socket.on('getPull', callBack);
+    getClone(callBack){
+        this.socket.on('getClone', callBack);
     }
 }
